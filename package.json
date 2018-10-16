@@ -1,0 +1,29 @@
+{
+  "name": "koa-router-scheme",
+  "version": "0.0.1",
+  "description": "router scheme middleware for Koa",
+  "main": "index.js",
+  "directories": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meizikeai/koa-router-scheme.git"
+  },
+  "keywords": [
+    "koa",
+    "koa2",
+    "router",
+    "koa-router",
+    "koa-router-scheme"
+  ],
+  "author": "meizikeai@163.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/meizikeai/koa-router-scheme/issues"
+  },
+  "homepage": "https://github.com/meizikeai/koa-router-scheme",
+  "devDependencies": {},
+  "dependencies": {}
+}
