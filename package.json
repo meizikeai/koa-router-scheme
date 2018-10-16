@@ -1,6 +1,6 @@
 {
   "name": "koa-router-scheme",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "router scheme middleware for Koa",
   "main": "index.js",
   "directories": {},

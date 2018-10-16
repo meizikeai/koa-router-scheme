@@ -31,10 +31,10 @@ app.listen(10010)
 ```javascript
 // defaults
 // const defaults = {
-//   controller: '../servers/controller',
-//   root: '../',
-//   routers: '../servers/routers',
-//   service: '../servers/service',
+//   controller: '../../servers/controller',
+//   root: '../../',
+//   routers: '../../servers/routers',
+//   service: '../../servers/service',
 // }
 ```
 

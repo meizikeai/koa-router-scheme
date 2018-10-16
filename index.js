@@ -12,10 +12,10 @@ module.exports = (app, config) => {
 
   // 合并配置
   const defaults = {
-    controller: '../servers/controller',
-    root: '../',
-    routers: '../servers/routers',
-    service: '../servers/service',
+    controller: '../../servers/controller',
+    root: '../../',
+    routers: '../../servers/routers',
+    service: '../../servers/service',
   }
   const options = Object.assign({}, defaults, config || {})
 
