@@ -1,6 +1,6 @@
 {
   "name": "koa-router-scheme",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "router scheme middleware for Koa",
   "main": "index.js",
   "directories": {},
@@ -24,6 +24,9 @@
     "url": "https://github.com/meizikeai/koa-router-scheme/issues"
   },
   "homepage": "https://github.com/meizikeai/koa-router-scheme",
-  "devDependencies": {},
-  "dependencies": {}
+  "dependencies": {
+    "bd-logger": "^2.0.3",
+    "koa-router": "^7.4.0"
+  },
+  "devDependencies": {}
 }
