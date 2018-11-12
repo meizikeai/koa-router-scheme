@@ -1,7 +1,6 @@
 const fs = require('fs')
 const path = require('path')
 const Router = require('koa-router')
-const logger = require('bd-logger')
 
 const loader = dir => require(dir)
 
@@ -42,12 +41,11 @@ module.exports = (app, config) => {
     service[crl.name] = loader(crl.module)
   })
 
-  const root = path.join(__dirname, options.root)
   Object.keys(routers).forEach(key => {
     const [method, path] = key.split(' ')
     app.router[method](path, async (ctx, next) => {
       const handler = routers[key]
-      await handler(ctx, next, { logger: logger({ root }), service })
+      await handler(ctx, next, { service })
     })
   })
 

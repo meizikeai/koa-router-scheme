@@ -25,8 +25,11 @@
   },
   "homepage": "https://github.com/meizikeai/koa-router-scheme",
   "dependencies": {
-    "bd-logger": "^2.0.3",
     "koa-router": "^7.4.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^5.8.0",
+    "eslint-config-blued": "0.0.17",
+    "eslint-plugin-import": "^2.14.0"
+  }
 }
