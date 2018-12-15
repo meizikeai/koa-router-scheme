@@ -34,7 +34,7 @@ app.listen(10010)
 //   controller: '../../servers/controller',
 //   root: '../../',
 //   routers: '../../servers/routers',
-//   service: '../../servers/service',
+//   models: '../../servers/models',
 // }
 ```
 
@@ -43,7 +43,7 @@ servers
 ├── controller            // 处理业务流程
 │    ├── common.js               
 │    └── other.js
-├── service               // 通用业务组件
+├── models                // 通用业务组件
 │    ├── common.js
 │    └── other.js
 └── routers               // 路由入口文件

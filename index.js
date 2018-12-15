@@ -9,43 +9,43 @@ module.exports = (app, config) => {
     throw new Error(`'app' object is not callable`)
   }
 
-  // 合并配置
+  // Merge configuration
   const defaults = {
     controller: '../../servers/controller',
     root: '../../',
     routers: '../../servers/routers',
-    service: '../../servers/service',
+    models: '../../servers/models',
   }
   const options = Object.assign({}, defaults, config || {})
 
   app.controller = {}
   app.router = new Router()
 
-  // 路由 - 回调方法
+  // Router - callback
   const controllers = folder(path.join(__dirname, options.controller))
   controllers.forEach(crl => {
     app.controller[crl.name] = loader(crl.module)
   })
 
-  // 路由 - 集中处理
+  // Router - handle
   const routers = {}
   const route = folder(path.join(__dirname, options.routers))
   route.forEach(crl => {
     Object.assign(routers, loader(crl.module)(app))
   })
 
-  // 公共服务
-  const service = {}
-  const work = folder(path.join(__dirname, options.service))
+  // Public Service
+  const models = {}
+  const work = folder(path.join(__dirname, options.models))
   work.forEach(crl => {
-    service[crl.name] = loader(crl.module)
+    models[crl.name] = loader(crl.module)
   })
 
   Object.keys(routers).forEach(key => {
     const [method, path] = key.split(' ')
     app.router[method](path, async (ctx, next) => {
       const handler = routers[key]
-      await handler(ctx, next, { service })
+      await handler(ctx, next, { models })
     })
   })
 
@@ -53,7 +53,7 @@ module.exports = (app, config) => {
 }
 
 /**
- * 获取文件集
+ * get file
  * @param {String} dir path
  */
 function folder (dir) {
