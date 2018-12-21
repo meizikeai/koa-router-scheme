@@ -11,10 +11,10 @@ module.exports = (app, config) => {
 
   // Merge configuration
   const defaults = {
-    controller: '../../servers/controller',
+    controller: '../../server/controller',
     root: '../../',
-    routers: '../../servers/routers',
-    models: '../../servers/models',
+    routers: '../../server/router',
+    models: '../../server/model',
   }
   const options = Object.assign({}, defaults, config || {})
 
