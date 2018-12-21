@@ -53,16 +53,38 @@ module.exports = (app, config) => {
 }
 
 /**
+ * checkDirectory
+ * @param {String} dir path
+ */
+function checkDirectory (dir) {
+  let result = false
+  try {
+    const stat = fs.statSync(dir)
+    if (stat && stat.isDirectory()) {
+      result = true
+    }
+  } catch (err) {
+    console.error(`"${dir}" is not a directory!`)
+  }
+  return result
+}
+
+/**
  * get file
  * @param {String} dir path
  */
 function folder (dir) {
-  let result = []
-  const list = fs.readdirSync(dir)
+  let [list, result] = [[], []]
+
+  const stat = checkDirectory(dir)
+  if (stat) {
+    list = fs.readdirSync(dir)
+  }
+
   list.forEach(name => {
     const file = path.join(dir, name)
-    const stat = fs.statSync(file)
-    if (stat && stat.isDirectory()) {
+    const stat = checkDirectory(file)
+    if (stat) {
       result = result.concat(folder(file))
     } else {
       result.push({ name: name.split('.')[0], module: file })

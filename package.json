@@ -1,6 +1,6 @@
 {
   "name": "koa-router-scheme",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "router scheme middleware for Koa",
   "main": "index.js",
   "directories": {},
@@ -28,7 +28,7 @@
     "koa-router": "^7.4.0"
   },
   "devDependencies": {
-    "eslint": "^5.8.0",
+    "eslint": "^5.10.0",
     "eslint-config-blued": "^0.0.18",
     "eslint-plugin-import": "^2.14.0"
   }
