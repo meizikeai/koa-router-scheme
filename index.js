@@ -45,7 +45,7 @@ module.exports = (app, config) => {
     const [method, path] = key.split(' ')
     app.router[method](path, async (ctx, next) => {
       const handler = routers[key]
-      await handler(ctx, next, { models })
+      await handler(ctx, { models }, next)
     })
   })
 
