@@ -1,89 +1,39 @@
 const fs = require('fs')
 const path = require('path')
-const Router = require('koa-router')
 
-const loader = dir => require(dir)
-
-module.exports = (app, config) => {
-  if (typeof app !== 'object') {
-    throw new Error(`'app' object is not callable`)
-  }
-
-  // Merge configuration
-  const defaults = {
-    controller: '../../server/controller',
-    root: '../../',
-    routers: '../../server/router',
-    models: '../../server/model',
-  }
-  const options = Object.assign({}, defaults, config || {})
-
-  app.controller = {}
-  app.router = new Router()
-
-  // Router - callback
-  const controllers = folder(path.join(__dirname, options.controller))
-  controllers.forEach(crl => {
-    app.controller[crl.name] = loader(crl.module)
-  })
-
-  // Router - handle
-  const routers = {}
-  const route = folder(path.join(__dirname, options.routers))
-  route.forEach(crl => {
-    Object.assign(routers, loader(crl.module)(app))
-  })
-
-  // Public Service
-  const models = {}
-  const work = folder(path.join(__dirname, options.models))
-  work.forEach(crl => {
-    models[crl.name] = loader(crl.module)
-  })
-
-  Object.keys(routers).forEach(key => {
-    const [method, path] = key.split(' ')
-    app.router[method](path, async (ctx, next) => {
-      const handler = routers[key]
-      await handler(ctx, { models }, next)
-    })
-  })
-
-  return app.router.routes()
+const loader = async dir => {
+  const result = await require(dir)
+  return result
 }
 
-/**
- * checkDirectory
- * @param {String} dir path
- */
-function checkDirectory (dir) {
+const checkDirectory = dir => {
   let result = false
+
   try {
-    const stat = fs.statSync(dir)
-    if (stat && stat.isDirectory()) {
+    const state = fs.statSync(dir)
+    if (state && state.isDirectory()) {
       result = true
     }
   } catch (err) {
     console.error(`"${dir}" is not a directory!`)
   }
+
   return result
 }
 
-/**
- * get file
- * @param {String} dir path
- */
-function folder (dir) {
-  let [list, result] = [[], []]
+const folder = dir => {
+  let vessel = []
+  let result = []
 
   const stat = checkDirectory(dir)
   if (stat) {
-    list = fs.readdirSync(dir)
+    vessel = fs.readdirSync(dir)
   }
 
-  list.forEach(name => {
+  vessel.forEach(name => {
     const file = path.join(dir, name)
     const stat = checkDirectory(file)
+
     if (stat) {
       result = result.concat(folder(file))
     } else {
@@ -92,4 +42,28 @@ function folder (dir) {
   })
 
   return result
+}
+
+module.exports = (config) => {
+  const { app } = config
+
+  if (typeof app !== 'object') {
+    throw new Error(`'app' object is not callable`)
+  }
+
+  const defaults = { paths: '../../server/routers' }
+  const option = Object.assign({}, defaults, config || {})
+  const gather = folder(path.join(__dirname, option.paths))
+
+  gather.forEach(async crl => {
+    const pass = /\.js$/gi.test(crl.module)
+
+    if (!pass) {
+      return false
+    }
+
+    const res = await loader(crl.module)
+
+    app.use(res.routes()).use(res.allowedMethods())
+  })
 }

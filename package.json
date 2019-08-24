@@ -1,6 +1,6 @@
 {
   "name": "koa-router-scheme",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "router scheme middleware for Koa",
   "main": "index.js",
   "directories": {},
@@ -24,12 +24,6 @@
     "url": "https://github.com/meizikeai/koa-router-scheme/issues"
   },
   "homepage": "https://github.com/meizikeai/koa-router-scheme",
-  "dependencies": {
-    "koa-router": "^7.4.0"
-  },
-  "devDependencies": {
-    "eslint": "^5.10.0",
-    "eslint-config-blued": "^0.0.18",
-    "eslint-plugin-import": "^2.14.0"
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }
